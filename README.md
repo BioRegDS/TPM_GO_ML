@@ -1,7 +1,7 @@
 # Title of Your Paper
 
 <p align="center">
-  <img src="docs/graphical_abstract.png[GA_parkinson_4.tif](https://github.com/user-attachments/files/27750142/GA_parkinson_4.tif)" width="500">
+  <img width="960" height="672" alt="GA_parkinson_github" src="https://github.com/user-attachments/assets/11ef86ff-b2e1-4480-bfc2-d597d04a8486" />
 </p>
 
 ## Overview
