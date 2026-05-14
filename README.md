@@ -1,4 +1,4 @@
-# Title of Your Paper
+# TPM GO ML
 
 <p align="center">
   <img width="960" height="672" alt="GA_parkinson_github" src="https://github.com/user-attachments/assets/11ef86ff-b2e1-4480-bfc2-d597d04a8486" />
