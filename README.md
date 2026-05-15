@@ -1,8 +1,7 @@
 # TPM GO ML
 
 <p align="center">
-  <<img width="960" height="672" alt="GA_parkinson4github" src="https://github.com/user-attachments/assets/ef500202-8f06-43f3-9cdd-0506940eda92" />
- />
+  <img width="960" height="672" alt="GA_parkinson4github" src="https://github.com/user-attachments/assets/ef500202-8f06-43f3-9cdd-0506940eda92" />
 </p>
 
 ## Overview
@@ -17,7 +16,7 @@ Short description of the study.
 Recommended (Conda)
 ```bash
 conda env create -f requirements.txt
-conda activate go-ml
+conda activate go_ml
 ```
 Alternative (pip only)
 ```bash
