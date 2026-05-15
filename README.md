@@ -8,7 +8,7 @@
 Short description of the study.
 
 ## Paper
-- Title: Modeling Ethnic Differences via Drug-Predicted Clearance from Chemical Structures
+- Title: Accurate and Explainable AI for Neurodegenerative Diseases: A Novel Feature Engineering Approach Using Gene Ontology from Gene Expression Data
 - Journal: xxx
 - DOI: xxx
 
@@ -17,18 +17,29 @@ pip install -r requirements.txt
 
 ## Usage
 1. Preprocessing
-python src/01_preprocessing.py
+notebook/data_processing/data_processing_PD.ipynb
+notebook/data_processing/GO_count2_PD.R
 
-2. Training
-python src/02_training.py
+3. Training
+notebook/model_tuning/optuna_tpm_PD.ipynb
+notebook/model_tuning/optuna_go_PD.ipynb
+notebook/model_tuning/optuna_merged_PD.ipynb
 
-3. Evaluation
-python src/03_evaluation.py
+5. Evaluation
+notebook/model_evaluation/eval_tpm_PD.ipynb
+notebook/model_evaluation/eval_go_PD.ipynb
+notebook/model_evaluation/eval_merged_PD.ipynb
+notebook/model_evaluation/shap_tpm_PD.ipynb
+notebook/model_evaluation/shap_go_PD.ipynb
+notebook/model_evaluation/shap_merged_PD.ipynb
 
 ## Data Availability
-The dataset is available in the supplementary materials.
+The datasets utilized in this study were obtained from the following sources:
 
-Sample data are provided in `data/sample/`.
+Parkinson’s Disease (PD) Dataset: Gene expression profiles and patient clinical data were retrieved from the GitHub repository (https://github.com/sssSSLp/PD_2021.git).
+
+Amyotrophic Lateral Sclerosis (ALS) Dataset: Gene expression and patient data were sourced from the NCBI Gene Expression Omnibus (GEO) repository under accession number GSE234297.
 
 ## Author
-BioRegDS (Data Science Unit, Department of Biological Regulation)
+Hayato Nakahara, Hiroaki Iwata
+Department of Biological Regulation, Faculty of Medicine, Tottori University, 86 Nishi-cho, Yonago 683-8503, Japan
