@@ -1,7 +1,8 @@
 # TPM GO ML
 
 <p align="center">
-  <img width="960" height="672" alt="GA_parkinson_github" src="https://github.com/user-attachments/assets/11ef86ff-b2e1-4480-bfc2-d597d04a8486" />
+  <<img width="960" height="672" alt="GA_parkinson4github" src="https://github.com/user-attachments/assets/ef500202-8f06-43f3-9cdd-0506940eda92" />
+ />
 </p>
 
 ## Overview
@@ -13,25 +14,30 @@ Short description of the study.
 - DOI: xxx
 
 ## Requirements
+Recommended (Conda)
+```bash
+conda env create -f requirements.txt
+conda activate go-ml
+```
+Alternative (pip only)
+```bash
 pip install -r requirements.txt
+```
 
 ## Usage
-1. Preprocessing
-notebook/data_processing/data_processing_PD.ipynb
-notebook/data_processing/GO_count2_PD.R
-
-3. Training
-notebook/model_tuning/optuna_tpm_PD.ipynb
-notebook/model_tuning/optuna_go_PD.ipynb
-notebook/model_tuning/optuna_merged_PD.ipynb
-
-5. Evaluation
-notebook/model_evaluation/eval_tpm_PD.ipynb
-notebook/model_evaluation/eval_go_PD.ipynb
-notebook/model_evaluation/eval_merged_PD.ipynb
-notebook/model_evaluation/shap_tpm_PD.ipynb
-notebook/model_evaluation/shap_go_PD.ipynb
-notebook/model_evaluation/shap_merged_PD.ipynb
+Make scripts executable:
+```bash
+chmod +x *.sh
+```
+Run script for each disease datasets
+・Parkinson's Disease (PD) dataset
+```bash
+./run_pipeline_PD.sh
+```
+・Amyotrophic Lateral Sclerosis (ALS) dataset
+```bash
+./run_pipeline_ALS.sh
+```
 
 ## Data Availability
 The datasets utilized in this study were obtained from the following sources:
