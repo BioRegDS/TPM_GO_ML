@@ -1,0 +1,26 @@
+name: go_ml
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.13
+  - pip
+  - jupyter
+  - ipykernel
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - statsmodels
+  - numba
+  - llvmlite
+  - xgboost
+  - lightgbm
+  - pytorch
+  - torchvision
+  - optuna
+  - shap
+  - pip:
+    - goatools
