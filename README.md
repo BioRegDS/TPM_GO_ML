@@ -47,4 +47,5 @@ Amyotrophic Lateral Sclerosis (ALS) Dataset: Gene expression and patient data we
 
 ## Author
 Hayato Nakahara, Hiroaki Iwata
+
 Department of Biological Regulation, Faculty of Medicine, Tottori University, 86 Nishi-cho, Yonago 683-8503, Japan
