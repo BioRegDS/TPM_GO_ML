@@ -15,8 +15,8 @@ import goatools
 
 
 #loading data
-bg_data = pd.read_csv("../../data_folder/background_all.csv",index_col=0)
-rc_data = pd.read_csv("../../data_folder/readcount_all.csv",index_col=0)
+bg_data = pd.read_csv("../../data_folder/background_all_small.csv",index_col=0)
+rc_data = pd.read_csv("../../data_folder/readcount_all_small.csv",index_col=0)
 pd_disc = pd.read_csv("../../data_folder/pd_discreption.csv",index_col=1)
 pd_tran = pd.read_csv("../../data_folder/pd_transcript.csv")
 

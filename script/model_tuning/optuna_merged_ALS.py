@@ -24,7 +24,7 @@ import optuna
 # Load datasets
 go_data = pd.read_csv("../../../output/go_ratio_ALS.csv", index_col=0)
 tpm_data = pd.read_csv("../../../output/tpm_data_ALS.csv", index_col=0)
-bg_data = pd.read_excel("../../../data_folder/ALS_sample_state.xlsx", index_col=0)
+bg_data = pd.read_excel("../../../data_folder/ALS_sample_state_small.xlsx", index_col=0)
 
 # Drop unnecessary column from GO data
 if "Gene_Count_ALS" in go_data.columns:

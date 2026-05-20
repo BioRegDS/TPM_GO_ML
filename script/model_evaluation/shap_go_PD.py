@@ -23,7 +23,7 @@ import lightgbm as lgb
 # Load datasets
 go_data = pd.read_csv("../../output/go_ratio_PD.csv", index_col=0)
 tpm_data = pd.read_csv("../../output/tpm_data_PD.csv", index_col=0)
-bg_data = pd.read_csv("../../data_folder/background_all.csv", index_col=0)
+bg_data = pd.read_csv("../../data_folder/background_all_small.csv", index_col=0)
 
 # Preprocessing
 if "Gene_Count_PD" in go_data.columns:

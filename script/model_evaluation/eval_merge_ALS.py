@@ -25,7 +25,7 @@ import lightgbm as lgb
 # Load datasets
 go_data = pd.read_csv("../../1209/output/go_ratio_ALS.csv", index_col=0)
 tpm_data = pd.read_csv("../../1209/output/tpm_data_ALS.csv", index_col=0)
-bg_data = pd.read_excel("../../1209/data_folder/ALS_sample_state.xlsx", index_col=0)
+bg_data = pd.read_excel("../../1209/data_folder/ALS_sample_state_small.xlsx", index_col=0)
 
 # Preprocessing
 if "Gene_Count_ALS" in go_data.columns:
