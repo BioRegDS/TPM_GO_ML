@@ -40,7 +40,7 @@ print("✅ Package preparation complete.")
 
 # 1. Import Study Results
 # Load the count matrix of significant GO terms identified in the ALS down-regulated set
-go_result_ALS <- read.csv("../../output/study_in_count_ALS.csv")
+go_result_ALS <- read.csv("output/study_in_count_ALS.csv")
 
 # Identify sample columns and the list of GO terms
 sample_names_ALS <- setdiff(colnames(go_result_ALS), "X")
@@ -68,6 +68,6 @@ go_ration_ALS <- left_join(go_result_ALS, count_summary_ALS, by=c("X"="GO")) %>%
   mutate(across(all_of(sample_names_ALS), ~ . / Gene_Count_ALS))
 
 # 5. Export Standardized Feature Matrix
-write.csv(go_ration_ALS, "../../output/go_ratio_ALS.csv", row.names = FALSE)
+write.csv(go_ration_ALS, "output/go_ratio_ALS.csv", row.names = FALSE)
 
 print("✅ Analysis complete: go_ratio_ALS.csv has been generated.")

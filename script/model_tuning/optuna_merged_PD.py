@@ -26,9 +26,9 @@ import optuna
 
 
 # Load datasets
-go_data = pd.read_csv("../../../output/go_ratio_complete_matrix_PD.csv", index_col=0)
-tpm_data = pd.read_csv("../../../output/tpm_data_PD.csv", index_col=0)
-bg_data = pd.read_csv("../../../data_folder/background_all_small.csv", index_col=0)
+go_data = pd.read_csv("output/go_ratio_PD.csv", index_col=0)
+tpm_data = pd.read_csv("output/tpm_data_PD.csv", index_col=0)
+bg_data = pd.read_csv("data_folder/background_all_small.csv", index_col=0)
 
 # Merge GO and TPM data
 merged_data = pd.concat([go_data, tpm_data], axis=0)
@@ -95,7 +95,7 @@ final_accuracy_rf = accuracy_score(y_test, best_rf.predict(X_test))
 print(f"✅ Final Test Accuracy: {final_accuracy_rf:.4f}")
 
 # Save the best parameters to a JSON file
-param_save_path = '../../../parameter/RF_merged_PD_params.json'
+param_save_path = 'parameter/RF_merged_PD_params.json'
 os.makedirs(os.path.dirname(param_save_path), exist_ok=True)
 with open(param_save_path, 'w') as f:
     json.dump(best_params_rf, f, indent=4)
@@ -185,7 +185,7 @@ final_accuracy_lgbm = accuracy_score(y_test_lgb, best_lgbm.predict(X_test_lgb))
 print(f"✅ Final LightGBM Test Accuracy: {final_accuracy_lgbm:.4f}")
 
 # Save the best parameters to a JSON file
-param_save_path_lgbm = '../../../parameter/LGBM_merged_PD_params.json'
+param_save_path_lgbm = 'parameter/LGBM_merged_PD_params.json'
 os.makedirs(os.path.dirname(param_save_path_lgbm), exist_ok=True)
 with open(param_save_path_lgbm, 'w') as f:
     json.dump(best_params_lgbm, f, indent=4)
@@ -257,7 +257,7 @@ final_accuracy_xgb = accuracy_score(y_test_xgb, best_xgb.predict(X_test_xgb))
 print(f"✅ Final XGBoost Test Accuracy: {final_accuracy_xgb:.4f}")
 
 # Save the best parameters to a JSON file
-param_save_path_xgb = '../../../parameter/XGB_merged_PD_params.json'
+param_save_path_xgb = 'parameter/XGB_merged_PD_params.json'
 os.makedirs(os.path.dirname(param_save_path_xgb), exist_ok=True)
 with open(param_save_path_xgb, 'w') as f:
     json.dump(best_params_xgb, f, indent=4)

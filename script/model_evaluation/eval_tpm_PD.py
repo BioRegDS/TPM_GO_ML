@@ -23,9 +23,9 @@ import xgboost as xgb
 import lightgbm as lgb
 
 # Load datasets
-go_data = pd.read_csv("../../1209/output/go_ratio_PD.csv", index_col=0)
-tpm_data = pd.read_csv("../../1209/output/tpm_data_PD.csv", index_col=0)
-bg_data = pd.read_csv("../../1209/data_folder/background_all_small.csv", index_col=0)
+go_data = pd.read_csv("output/go_ratio_PD.csv", index_col=0)
+tpm_data = pd.read_csv("output/tpm_data_PD.csv", index_col=0)
+bg_data = pd.read_csv("data_folder/background_all_small.csv", index_col=0)
 
 # Preprocessing
 if "Gene_Count_PD" in go_data.columns:
@@ -70,15 +70,15 @@ print(f"Duplicate features remaining: {X_train.columns.duplicated().sum()}")
 # =====================================================================
 
 # Load Random Forest parameters
-with open("../../1209/parameter/RF_TPM_PD_params-500.json", "r") as f:
+with open("parameter/RF_TPM_PD_params.json", "r") as f:
     rf_params = json.load(f)
 
 # Load LightGBM parameters (Adjust filename as needed)
-with open("../../1209/parameter/lgbm_best_TPM_PD_params-500.json", "r") as f:
+with open("parameter/lgbm_best_TPM_PD_params.json", "r") as f:
     lgbm_params = json.load(f)
 
 # Load XGBoost parameters (Adjust filename as needed)
-with open("../../1209/parameter/xgboost_best_TPM_PD_params-500.json", "r") as f:
+with open("parameter/xgboost_best_TPM_PD_params.json", "r") as f:
     xgb_params = json.load(f)
 
 print("All model parameters loaded successfully.")

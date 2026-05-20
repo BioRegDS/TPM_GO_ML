@@ -37,7 +37,7 @@ print("✅ Environment setup complete.")
 
 # 1. Import Data
 # Load the study count matrix (extracted GO terms and their associated gene counts)
-go_result_PD <- read.csv("../../output/standardized_go_matrix_PD.csv")
+go_result_PD <- read.csv("output/study_in_count_PD.csv")
 sample_names_PD <- setdiff(colnames(go_result_PD), "X")
 go_list_PD <- go_result_PD$X
 
@@ -84,6 +84,6 @@ go_ratio_PD <- left_join(go_result_PD, count_summary_PD, by=c("X"="GO")) %>%
   mutate(across(all_of(sample_names_PD), ~ . / Gene_Count_PD))
 
 # Export the normalized feature matrix
-write.csv(go_ratio_PD, "../../output/go_ratio_PD_up.csv", row.names = FALSE)
+write.csv(go_ratio_PD, "output/go_ratio_PD.csv", row.names = FALSE)
 
-print("✅ Analysis complete: BP-specific GO-ratio matrix exported to go_ratio_PD_up.csv.")
+print("✅ Analysis complete: BP-specific GO-ratio matrix exported to go_ratio_PD.csv.")

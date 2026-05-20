@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
+from __future__ import print_function
+
 # In[ ]:
 
 
 #importing modules
-get_ipython().system('pip install pandas')
-get_ipython().system('pip install goatools')
 import pandas as pd
 import goatools
 
@@ -15,10 +16,10 @@ import goatools
 
 
 #loading data
-bg_data = pd.read_csv("../../data_folder/background_all_small.csv",index_col=0)
-rc_data = pd.read_csv("../../data_folder/readcount_all_small.csv",index_col=0)
-pd_disc = pd.read_csv("../../data_folder/pd_discreption.csv",index_col=1)
-pd_tran = pd.read_csv("../../data_folder/pd_transcript.csv")
+bg_data = pd.read_csv("data_folder/background_all_small.csv",index_col=0)
+rc_data = pd.read_csv("data_folder/readcount_all_small.csv",index_col=0)
+pd_disc = pd.read_csv("data_folder/pd_discreption.csv",index_col=1)
+pd_tran = pd.read_csv("data_folder/pd_transcript.csv")
 
 
 # In[ ]:
@@ -131,7 +132,7 @@ print(ctrl_mean)
 
 
 #saving tpm data as tpm_data.csv
-rc_all_tpm.to_csv("../../output/tpm_data_PD.csv")
+rc_all_tpm.to_csv("output/tpm_data_PD.csv")
 
 
 # In[ ]:
@@ -177,7 +178,7 @@ log2fold4go
 
 
 #saving log2fold data as log2fold4go.csv
-log2fold4go.to_csv("../../output/log2fold4go_PD.csv")
+log2fold4go.to_csv("output/log2fold4go_PD.csv")
 
 
 # In[ ]:
@@ -204,7 +205,6 @@ obodag = GODag("go-basic.obo")
 
 # Load and parse the NCBI gene2go file
 # Taxids=[9606] limits the annotations to Homo sapiens
-from __future__ import print_function
 from goatools.anno.genetogo_reader import Gene2GoReader
 objanno = Gene2GoReader(fin_gene2go, taxids=[9606])
 
@@ -277,12 +277,6 @@ finger_df = pd.DataFrame.from_dict(fingerprint, orient="index").fillna(0).astype
 # In[ ]:
 
 
-finger_df
-
-
-# In[ ]:
-
-
 # =============================================================================
 # Standardizing the Feature Matrix (Metadata Alignment)
 # =============================================================================
@@ -306,51 +300,12 @@ for case_name in sample_ID:
 finger_df = finger_df.reindex(columns=sample_ID)
 
 # Export the standardized feature matrix for downstream machine learning pipelines
-finger_df.to_csv("../../output/study_in_count_PD.csv")
+finger_df.to_csv("output/study_in_count_PD.csv")
 
 
 # In[ ]:
 
 
-finger_df = finger_df.T
-finger_df
 
 
-# In[ ]:
-
-
-# =============================================================================
-# 4. Metadata Alignment and Zero-padding
-# =============================================================================
-# To ensure the feature matrix (X) is compatible with the labels (y) in 
-# downstream machine learning pipelines, we must synchronize the samples 
-# in the feature matrix with the master metadata list (bg_data.index).
-
-# Samples that had zero significantly enriched GO terms will be missing 
-# from the columns of finger_df. We use 'reindex' to automatically add these 
-# missing samples and populate them with zeros (Zero-padding).
-finger_df = finger_df.reindex(columns=bg_data.index, fill_value=0)
-
-# Ensure the data type remains integer after reindexing
-finger_df = finger_df.astype(int)
-
-# --- Final Validation: Check Sample Integrity ---
-# Verify that the dimensions and order of the matrix perfectly match the metadata
-print(f"Total samples in metadata: {len(bg_data.index)}")
-print(f"Total samples in final feature matrix: {len(finger_df.columns)}")
-
-if all(finger_df.columns == bg_data.index):
-    print("✅ Success: Feature matrix columns are perfectly aligned with the metadata index.")
-else:
-    print("⚠️ Warning: Sample alignment mismatch detected. Please verify the sorting of indices.")
-
-# Export the standardized functional feature matrix
-# The resulting CSV will have GO IDs as rows and Sample IDs as columns.
-finger_df.to_csv("../../output/standardized_go_matrix_PD.csv")
-
-
-# In[ ]:
-
-
-finger_df
 

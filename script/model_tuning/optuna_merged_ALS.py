@@ -22,9 +22,9 @@ import lightgbm as lgb
 import optuna
 
 # Load datasets
-go_data = pd.read_csv("../../../output/go_ratio_ALS.csv", index_col=0)
-tpm_data = pd.read_csv("../../../output/tpm_data_ALS.csv", index_col=0)
-bg_data = pd.read_excel("../../../data_folder/ALS_sample_state_small.xlsx", index_col=0)
+go_data = pd.read_csv("output/go_ratio_ALS.csv", index_col=0)
+tpm_data = pd.read_csv("output/tpm_data_ALS.csv", index_col=0)
+bg_data = pd.read_excel("data_folder/ALS_sample_state_small.xlsx", index_col=0)
 
 # Drop unnecessary column from GO data
 if "Gene_Count_ALS" in go_data.columns:
@@ -83,7 +83,7 @@ best_rf.fit(X_train_rf, y_train_rf)
 print(f"✅ Final Test Accuracy (RF): {accuracy_score(y_test_rf, best_rf.predict(X_test_rf)):.4f}")
 
 # Save the best parameters to a JSON file
-param_save_path_rf = '../../../parameter/RF_merged_ALS_params.json'
+param_save_path_rf = 'parameter/RF_merged_ALS_params.json'
 os.makedirs(os.path.dirname(param_save_path_rf), exist_ok=True)
 with open(param_save_path_rf, 'w') as f:
     json.dump(best_params_rf, f, indent=4)
@@ -159,7 +159,7 @@ best_lgbm.fit(X_train_lgb, y_train_lgb)
 print(f"✅ Final Test Accuracy (LightGBM): {accuracy_score(y_test_lgb, best_lgbm.predict(X_test_lgb)):.4f}")
 
 # Save the best parameters to a JSON file
-param_save_path_lgbm = '../../../parameter/LGBM_merged_ALS_params.json'
+param_save_path_lgbm = 'parameter/LGBM_merged_ALS_params.json'
 with open(param_save_path_lgbm, 'w') as f:
     json.dump(best_params_lgbm, f, indent=4)
 
@@ -220,7 +220,7 @@ best_xgb.fit(X_train_xgb, y_train_xgb)
 print(f"✅ Final Test Accuracy (XGBoost): {accuracy_score(y_test_xgb, best_xgb.predict(X_test_xgb)):.4f}")
 
 # Save the best parameters to a JSON file
-param_save_path_xgb = '../../../parameter/XGB_merged_ALS_params.json'
+param_save_path_xgb = 'parameter/XGB_merged_ALS_params.json'
 with open(param_save_path_xgb, 'w') as f:
     json.dump(best_params_xgb, f, indent=4)
 

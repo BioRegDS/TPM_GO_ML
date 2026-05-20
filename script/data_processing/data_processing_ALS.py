@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
+from __future__ import print_function
+
 # In[ ]:
 
 
 #importing modules
-get_ipython().system('pip install pandas')
-get_ipython().system('pip install goatools')
 import pandas as pd
 import goatools
 
@@ -15,9 +16,9 @@ import goatools
 
 
 #loading data
-bg_data = pd.read_excel("../../data_folder/ALS_sample_state.xlsx",index_col=0)
-rc_data = pd.read_csv("../../data_folder/gene_expression.csv",index_col=0)
-ALS_disc = pd.read_csv("../../data_folder/ALS_gene_discreption.csv",index_col=2)
+bg_data = pd.read_excel("data_folder/ALS_sample_state_small.xlsx",index_col=0)
+rc_data = pd.read_csv("data_folder/gene_expression_small.csv",index_col=0)
+ALS_disc = pd.read_csv("data_folder/ALS_gene_discreption.csv",index_col=2)
 
 
 # In[ ]:
@@ -123,7 +124,7 @@ tpm_data = tpm_data[tpm_data.index.notna()]
 
 
 #saving tpm data as tpm_data.csv
-tpm_data.to_csv("../../output/tpm_data_ALS.csv")
+tpm_data.to_csv("output/tpm_data_ALS.csv")
 
 
 # In[ ]:
@@ -200,7 +201,7 @@ log2fold4go
 
 
 #saving log2fold data as log2fold4go.csv
-log2fold4go.to_csv("../../output/log2fold4go_ALS.csv")
+log2fold4go.to_csv("output/log2fold4go_ALS.csv")
 
 
 # In[ ]:
@@ -227,7 +228,6 @@ obodag = GODag("go-basic.obo")
 
 # --- Step 3: Association Mapping and Filtering ---
 # Load and parse NCBI associations, filtering for Homo sapiens (Taxon ID: 9606)
-from __future__ import print_function
 from goatools.anno.genetogo_reader import Gene2GoReader
 objanno = Gene2GoReader(fin_gene2go, taxids=[9606])
 
@@ -351,5 +351,5 @@ finger_df
 # In[ ]:
 
 
-finger_df.to_csv("../../output/study_in_count_ALS.csv")
+finger_df.to_csv("output/study_in_count_ALS.csv")
 
