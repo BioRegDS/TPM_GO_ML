@@ -45,7 +45,7 @@ Parkinson’s Disease (PD) Dataset: Gene expression profiles and patient clinica
 
 Amyotrophic Lateral Sclerosis (ALS) Dataset: Gene expression and patient data were sourced from the NCBI Gene Expression Omnibus (GEO) repository under accession number GSE234297.
 
-A small subset is included in 'data_folder' for demonstration.
+A small subset is included in `data_folder` for demonstration.
 
 ## Author
 Hayato Nakahara, Hiroaki Iwata
