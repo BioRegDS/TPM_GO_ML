@@ -15,7 +15,7 @@ Short description of the study.
 ## Requirements
 Recommended (Conda)
 ```bash
-conda env create -f requirements.txt
+conda env create -f requirements.yml
 conda activate go_ml
 ```
 Alternative (pip only)
