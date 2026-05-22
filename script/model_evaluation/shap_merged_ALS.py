@@ -21,7 +21,7 @@ import xgboost as xgb
 import lightgbm as lgb
 
 # Load datasets
-go_data = pd.read_csv("/go_ratio_ALS.csv", index_col=0)
+go_data = pd.read_csv("output/go_ratio_ALS.csv", index_col=0)
 tpm_data = pd.read_csv("output/tpm_data_ALS.csv", index_col=0)
 bg_data = pd.read_excel("data_folder/ALS_sample_state_small.xlsx", index_col=0)
 
@@ -69,9 +69,9 @@ print(f"Data ready. Features: {X_train.shape[1]}, Training samples: {X_train.sha
 # Load parameters from JSON
 with open("parameter/RF_merged_ALS_params.json", "r") as f:
     rf_params = json.load(f)
-with open("parameter/lgbm_best_merged_ALS_params.json", "r") as f:
+with open("parameter/LGBM_merged_ALS_params.json", "r") as f:
     lgbm_params = json.load(f)
-with open("parameter/xgboost_best_merged_ALS_params.json", "r") as f:
+with open("parameter/XGB_merged_ALS_params.json", "r") as f:
     xgb_params = json.load(f)
 
 # Initialize models
@@ -228,7 +228,7 @@ common_features_final = common_features_df[common_features_df['Count'] >= 2].cop
 common_features_final = common_features_final.sort_values(by=['Count', 'Feature'], ascending=[False, True])
 
 print(f"\n✅ Found {len(common_features_final)} features common to 2 or more models (out of top {top_n_for_overlap}).")
-display(common_features_final)
+print(common_features_final)
 
 
 # In[ ]:
@@ -248,5 +248,5 @@ export_df.to_csv(csv_output_path, index=False)
 print(f"✅ Common features data successfully exported to: {csv_output_path}")
 
 # Display first few rows of the final export format
-display(export_df.head())
+print(export_df.head())
 

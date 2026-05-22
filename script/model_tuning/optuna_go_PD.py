@@ -29,7 +29,7 @@ import optuna
 go_data = pd.read_csv("output/go_ratio_PD.csv", index_col=0)
 tpm_data = pd.read_csv("output/tpm_data_PD.csv", index_col=0)
 bg_data = pd.read_csv("data_folder/background_all_small.csv", index_col=0)
-
+go_data = go_data.drop("Gene_Count_PD", axis=1)
 # Merge GO and TPM data
 merged_data = pd.concat([go_data, tpm_data], axis=0)
 

@@ -35,7 +35,7 @@ if "Gene_Count_ALS" in go_data.columns:
 merged_data = pd.concat([go_data, tpm_data], axis=0)
 
 # Define Features (X) and Target (y)
-X = tpm_data.T
+X = merged_data.T
 y = bg_data['State']
 
 # ---------------------------------------------------------
@@ -70,15 +70,15 @@ print(f"Duplicate features remaining: {X_train.columns.duplicated().sum()}")
 # =====================================================================
 
 # Load Random Forest parameters
-with open("parameter/RF_tpm_ALS_params.json", "r") as f:
+with open("parameter/RF_merged_ALS_params.json", "r") as f:
     rf_params = json.load(f)
 
 # Load LightGBM parameters (Adjust filename as needed)
-with open("parameter/LGBM_tpm_ALS_params.json", "r") as f:
+with open("parameter/LGBM_merged_ALS_params.json", "r") as f:
     lgbm_params = json.load(f)
 
 # Load XGBoost parameters (Adjust filename as needed)
-with open("parameter/XGB_tpm_ALS_params.json", "r") as f:
+with open("parameter/XGB_merged_ALS_params.json", "r") as f:
     xgb_params = json.load(f)
 
 print("All model parameters loaded successfully.")
@@ -189,7 +189,7 @@ for name, data in results.items():
 
 # Export metrics to CSV
 metrics_df = pd.DataFrame(metrics_list)
-csv_path = os.path.join(output_dir, "model_evaluation_metrics_ALS_tpm.csv")
+csv_path = os.path.join(output_dir, "model_evaluation_metrics_ALS_merged.csv")
 metrics_df.to_csv(csv_path, index=False)
 
 print(f"\n✅ Evaluation metrics successfully saved to: {csv_path}")
@@ -224,7 +224,7 @@ for i, (name, data) in enumerate(results.items()):
 plt.tight_layout()
 
 # Save figure before showing
-cm_fig_path = os.path.join(output_dir, "confusion_matricesALS_tpm.png")
+cm_fig_path = os.path.join(output_dir, "confusion_matricesALS_merged.png")
 plt.savefig(cm_fig_path, dpi=300, bbox_inches='tight')
 print(f"✅ Confusion matrices figure saved to: {cm_fig_path}")
 
@@ -257,12 +257,12 @@ plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
 plt.xlabel('False Positive Rate (1 - Specificity)')
 plt.ylabel('True Positive Rate (Sensitivity)')
-plt.title('Combined ROC Curve for ALS Classification (TPM data)')
+plt.title('Combined ROC Curve for ALS Classification (TPM + GO data)')
 plt.legend(loc="lower right")
 plt.grid(True, alpha=0.3)
 
 # Save figure before showing
-roc_fig_path = os.path.join(output_dir, "combined_roc_curve_ALS_tpm.png")
+roc_fig_path = os.path.join(output_dir, "combined_roc_curve_ALS_merged.png")
 plt.savefig(roc_fig_path, dpi=300, bbox_inches='tight')
 print(f"✅ Combined ROC curve figure saved to: {roc_fig_path}")
 

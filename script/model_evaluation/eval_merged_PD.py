@@ -23,20 +23,20 @@ import xgboost as xgb
 import lightgbm as lgb
 
 # Load datasets
-go_data = pd.read_csv("output/go_ratio_ALS.csv", index_col=0)
-tpm_data = pd.read_csv("output/tpm_data_ALS.csv", index_col=0)
-bg_data = pd.read_excel("data_folder/ALS_sample_state_small.xlsx", index_col=0)
+go_data = pd.read_csv("output/go_ratio_PD.csv", index_col=0)
+tpm_data = pd.read_csv("output/tpm_data_PD.csv", index_col=0)
+bg_data = pd.read_csv("data_folder/background_all_small.csv", index_col=0)
 
 # Preprocessing
-if "Gene_Count_ALS" in go_data.columns:
-    go_data = go_data.drop("Gene_Count_ALS", axis=1)
+if "Gene_Count_PD" in go_data.columns:
+    go_data = go_data.drop("Gene_Count_PD", axis=1)
 
 # Merge GO and TPM data
 merged_data = pd.concat([go_data, tpm_data], axis=0)
 
 # Define Features (X) and Target (y)
-X = tpm_data.T
-y = bg_data['State']
+X = merged_data.T
+y = bg_data['Class']
 
 # ---------------------------------------------------------
 # Feature Name Cleaning & Deduplication (Crucial for LightGBM/XGBoost)
@@ -49,8 +49,8 @@ cols_series = pd.Series(clean_cols)
 dup_counts = cols_series.groupby(cols_series).cumcount()
 X.columns = np.where(dup_counts > 0, cols_series + '_' + dup_counts.astype(str), cols_series)
 
-# Encode target variable: 'ALS' -> 1, 'CL' (Control) -> 0
-y_encoded = np.where(y == 'ALS', 1, 0)
+# Encode target variable: 'PD' -> 1, 'CL' (Control) -> 0
+y_encoded = np.where(y == 'PD', 1, 0)
 
 # Train-Test Split (Stratified to maintain class balance)
 X_train, X_test, y_train, y_test = train_test_split(
@@ -70,15 +70,15 @@ print(f"Duplicate features remaining: {X_train.columns.duplicated().sum()}")
 # =====================================================================
 
 # Load Random Forest parameters
-with open("parameter/RF_tpm_ALS_params.json", "r") as f:
+with open("parameter/RF_merged_PD_params.json", "r") as f:
     rf_params = json.load(f)
 
 # Load LightGBM parameters (Adjust filename as needed)
-with open("parameter/LGBM_tpm_ALS_params.json", "r") as f:
+with open("parameter/LGBM_merged_PD_params.json", "r") as f:
     lgbm_params = json.load(f)
 
 # Load XGBoost parameters (Adjust filename as needed)
-with open("parameter/XGB_tpm_ALS_params.json", "r") as f:
+with open("parameter/XGB_merged_PD_params.json", "r") as f:
     xgb_params = json.load(f)
 
 print("All model parameters loaded successfully.")
@@ -104,7 +104,7 @@ for name, clf in models.items():
     # Train the model
     clf.fit(X_train, y_train)
 
-    # Predict probabilities for the positive class (ALS = 1)
+    # Predict probabilities for the positive class (PD = 1)
     y_prob = clf.predict_proba(X_test)[:, 1]
 
     # Calculate ROC metrics
@@ -160,14 +160,14 @@ for name, data in results.items():
     acc_std = accuracy_score(y_test, data['y_pred_std'])
     print("[1] Standard Threshold (0.5)")
     print(f"Accuracy: {acc_std:.4f}")
-    print(classification_report(y_test, data['y_pred_std'], target_names=['Control', 'ALS']))
+    print(classification_report(y_test, data['y_pred_std'], target_names=['Control', 'PD']))
 
     # [2] Optimal Threshold
     acc_youden = accuracy_score(y_test, data['y_pred_youden'])
     print("-" * 50)
     print(f"[2] Optimal Threshold (Youden Index = {data['optimal_threshold']:.4f})")
     print(f"Accuracy: {acc_youden:.4f}")
-    print(classification_report(y_test, data['y_pred_youden'], target_names=['Control', 'ALS']))
+    print(classification_report(y_test, data['y_pred_youden'], target_names=['Control', 'PD']))
 
     # Append metrics for CSV export
     metrics_list.append({
@@ -189,7 +189,7 @@ for name, data in results.items():
 
 # Export metrics to CSV
 metrics_df = pd.DataFrame(metrics_list)
-csv_path = os.path.join(output_dir, "model_evaluation_metrics_ALS_tpm.csv")
+csv_path = os.path.join(output_dir, "model_evaluation_metrics_PD_merged.csv")
 metrics_df.to_csv(csv_path, index=False)
 
 print(f"\n✅ Evaluation metrics successfully saved to: {csv_path}")
@@ -207,7 +207,7 @@ for i, (name, data) in enumerate(results.items()):
 
     # --- Top Row: Standard Threshold (0.5) ---
     cm_std = confusion_matrix(y_test, data['y_pred_std'])
-    df_cm_std = pd.DataFrame(np.rot90(cm_std, 2), index=["actual_ALS", "actual_Control"], columns=["predict_ALS", "predict_Control"])
+    df_cm_std = pd.DataFrame(np.rot90(cm_std, 2), index=["actual_PD", "actual_Control"], columns=["predict_PD", "predict_Control"])
 
     sns.heatmap(df_cm_std, annot=True, fmt="g", cmap='Blues', ax=axes[0, i], cbar=False)
     axes[0, i].set_title(f"{name}\nStandard Threshold (0.5)")
@@ -215,7 +215,7 @@ for i, (name, data) in enumerate(results.items()):
 
     # --- Bottom Row: Optimal Threshold (Youden) ---
     cm_youden = confusion_matrix(y_test, data['y_pred_youden'])
-    df_cm_youden = pd.DataFrame(np.rot90(cm_youden, 2), index=["actual_ALS", "actual_Control"], columns=["predict_ALS", "predict_Control"])
+    df_cm_youden = pd.DataFrame(np.rot90(cm_youden, 2), index=["actual_PD", "actual_Control"], columns=["predict_PD", "predict_Control"])
 
     sns.heatmap(df_cm_youden, annot=True, fmt="g", cmap='Oranges', ax=axes[1, i], cbar=False)
     axes[1, i].set_title(f"{name}\nOptimal Threshold ({data['optimal_threshold']:.4f})")
@@ -224,7 +224,7 @@ for i, (name, data) in enumerate(results.items()):
 plt.tight_layout()
 
 # Save figure before showing
-cm_fig_path = os.path.join(output_dir, "confusion_matricesALS_tpm.png")
+cm_fig_path = os.path.join(output_dir, "confusion_matrices_PD_merged.png")
 plt.savefig(cm_fig_path, dpi=300, bbox_inches='tight')
 print(f"✅ Confusion matrices figure saved to: {cm_fig_path}")
 
@@ -257,12 +257,12 @@ plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
 plt.xlabel('False Positive Rate (1 - Specificity)')
 plt.ylabel('True Positive Rate (Sensitivity)')
-plt.title('Combined ROC Curve for ALS Classification (TPM data)')
+plt.title('Combined ROC Curve for PD Classification (TPM + GO data)')
 plt.legend(loc="lower right")
 plt.grid(True, alpha=0.3)
 
 # Save figure before showing
-roc_fig_path = os.path.join(output_dir, "combined_roc_curve_ALS_tpm.png")
+roc_fig_path = os.path.join(output_dir, "combined_roc_curve_PD_merged.png")
 plt.savefig(roc_fig_path, dpi=300, bbox_inches='tight')
 print(f"✅ Combined ROC curve figure saved to: {roc_fig_path}")
 

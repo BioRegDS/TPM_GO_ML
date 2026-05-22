@@ -22,7 +22,7 @@ import lightgbm as lgb
 
 # Load datasets
 go_data = pd.read_csv("output/go_ratio_PD.csv", index_col=0)
-tpm_data = pd.read_csv(".output/tpm_data_PD.csv", index_col=0)
+tpm_data = pd.read_csv("output/tpm_data_PD.csv", index_col=0)
 bg_data = pd.read_csv("data_folder/background_all_small.csv", index_col=0)
 
 # Preprocessing
@@ -70,15 +70,15 @@ print(f"Data ready. Features: {X_train.shape[1]}, Training samples: {X_train.sha
 # =====================================================================
 
 # Load Random Forest parameters
-with open("parameter/RF_GO_PD_params.json", "r") as f:
+with open("parameter/RF_go_PD_params.json", "r") as f:
     rf_params = json.load(f)
 
 # Load LightGBM parameters (Adjust filename as needed)
-with open("parameter/lgbm_best_GO_PD_params.json", "r") as f:
+with open("parameter/LGBM_go_PD_params.json", "r") as f:
     lgbm_params = json.load(f)
 
 # Load XGBoost parameters (Adjust filename as needed)
-with open("parameter/xgboost_best_GO_PD_params.json", "r") as f:
+with open("parameter/XGB_go_PD_params.json", "r") as f:
     xgb_params = json.load(f)
 
 print("All model parameters loaded successfully.")
@@ -237,7 +237,7 @@ common_features_final = common_features_df[common_features_df['Count'] >= 2].cop
 common_features_final = common_features_final.sort_values(by=['Count', 'Feature'], ascending=[False, True])
 
 print(f"\n✅ Found {len(common_features_final)} features common to 2 or more models (out of top {top_n_for_overlap}).")
-display(common_features_final)
+print(common_features_final)
 
 
 # In[ ]:
@@ -257,5 +257,5 @@ export_df.to_csv(csv_output_path, index=False)
 print(f"✅ Common features data successfully exported to: {csv_output_path}")
 
 # Display first few rows of the final export format
-display(export_df.head())
+print(export_df.head())
 

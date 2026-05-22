@@ -67,11 +67,11 @@ print(f"Data ready. Features: {X_train.shape[1]}, Training samples: {X_train.sha
 # 2. Parameter Loading and Model Initialization
 # =====================================================================
 # Load parameters from JSON
-with open("parameter/RF_TPM_ALS_params.json", "r") as f:
+with open("parameter/RF_tpm_ALS_params.json", "r") as f:
     rf_params = json.load(f)
-with open("parameter/lgbm_best_TPM_ALS_params.json", "r") as f:
+with open("parameter/LGBM_tpm_ALS_params.json", "r") as f:
     lgbm_params = json.load(f)
-with open("parameter/xgboost_best_TPM_ALS_params.json", "r") as f:
+with open("parameter/XGB_tpm_ALS_params.json", "r") as f:
     xgb_params = json.load(f)
 
 # Initialize models
@@ -228,7 +228,7 @@ common_features_final = common_features_df[common_features_df['Count'] >= 2].cop
 common_features_final = common_features_final.sort_values(by=['Count', 'Feature'], ascending=[False, True])
 
 print(f"\n✅ Found {len(common_features_final)} features common to 2 or more models (out of top {top_n_for_overlap}).")
-display(common_features_final)
+print(common_features_final)
 
 
 # In[ ]:
@@ -248,5 +248,5 @@ export_df.to_csv(csv_output_path, index=False)
 print(f"✅ Common features data successfully exported to: {csv_output_path}")
 
 # Display first few rows of the final export format
-display(export_df.head())
+print(export_df.head())
 

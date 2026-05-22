@@ -70,15 +70,15 @@ print(f"Duplicate features remaining: {X_train.columns.duplicated().sum()}")
 # =====================================================================
 
 # Load Random Forest parameters
-with open("../../1209/parameter/RF_GO_PD_params.json", "r") as f:
+with open("parameter/RF_go_PD_params.json", "r") as f:
     rf_params = json.load(f)
 
 # Load LightGBM parameters (Adjust filename as needed)
-with open("../../1209/parameter/lgbm_best_GO_PD_params.json", "r") as f:
+with open("parameter/LGBM_go_PD_params.json", "r") as f:
     lgbm_params = json.load(f)
 
 # Load XGBoost parameters (Adjust filename as needed)
-with open("../../1209/parameter/xgboost_best_GO_PD_paramsjson", "r") as f:
+with open("parameter/XGB_go_PD_params.json", "r") as f:
     xgb_params = json.load(f)
 
 print("All model parameters loaded successfully.")
@@ -145,7 +145,7 @@ print("\nAll models trained and evaluated.")
 import os
 
 # Create output directory if it doesn't exist
-output_dir = "../../output_fig"
+output_dir = "output_fig"
 os.makedirs(output_dir, exist_ok=True)
 
 metrics_list = []

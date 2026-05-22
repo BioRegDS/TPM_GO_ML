@@ -74,11 +74,11 @@ with open("parameter/RF_merged_PD_params.json", "r") as f:
     rf_params = json.load(f)
 
 # Load LightGBM parameters (Adjust filename as needed)
-with open("parameter/lgbm_best_merged_PD_params.json", "r") as f:
+with open("parameter/LGBM_merged_PD_params.json", "r") as f:
     lgbm_params = json.load(f)
 
 # Load XGBoost parameters (Adjust filename as needed)
-with open("parameter/xgboost_best_merged_PD_params.json", "r") as f:
+with open("parameter/XGB_merged_PD_params.json", "r") as f:
     xgb_params = json.load(f)
 
 print("All model parameters loaded successfully.")
@@ -237,7 +237,7 @@ common_features_final = common_features_df[common_features_df['Count'] >= 2].cop
 common_features_final = common_features_final.sort_values(by=['Count', 'Feature'], ascending=[False, True])
 
 print(f"\n✅ Found {len(common_features_final)} features common to 2 or more models (out of top {top_n_for_overlap}).")
-display(common_features_final)
+print(common_features_final)
 
 
 # In[ ]:
@@ -257,5 +257,5 @@ export_df.to_csv(csv_output_path, index=False)
 print(f"✅ Common features data successfully exported to: {csv_output_path}")
 
 # Display first few rows of the final export format
-display(export_df.head())
+print(export_df.head())
 
