@@ -8,7 +8,7 @@
 Short description of the study.
 
 ## Paper
-- Title: Accurate and Explainable AI for Neurodegenerative Diseases: A Novel Feature Engineering Approach Using Gene Ontology from Gene Expression Data
+- Title: GO Ratio: A Biologically Interpretable Feature Representation for Transcriptomic Machine Learning in Neurodegenerative Diseases
 - Journal: xxx
 - DOI: xxx
 
